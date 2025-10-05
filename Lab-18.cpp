@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 using namespace std;
 
@@ -56,11 +57,18 @@ void outputReviews(Review* head) {
         temp = temp->next;
     }
 
+    cout << fixed << setprecision(2);
     cout << "    > Average: " << (count > 0 ? total / count : 0) << endl;
 }
 
 // Function to delete the linked list (cleanup)
-
+void deleteList(Review* head) {
+    while (head != nullptr) {
+        Review* temp = head;
+        head = head->next;
+        delete temp;
+    }
+}
 
 int main() {
     Review* head = nullptr;
@@ -70,6 +78,31 @@ int main() {
     cout << "    [2] New nodes are added at the tail of the linked list\n";
     cout << "    Choice: ";
     cin >> choice;
+    cin.ignore();
 
+    char again = 'Y';
+    while (toupper(again) == 'Y') {
+        float rating;
+        string comment;
 
+        cout << "Enter review rating 0-5: ";
+        cin >> rating;
+        cin.ignore();
+
+        cout << "Enter review comments: ";
+        getline(cin, comment);
+
+        if (choice == 1)
+            head = addToHead(head, rating, comment);
+        else
+            head = addToTail(head, rating, comment);
+
+        cout << "Enter another review? Y/N: ";
+        cin >> again;
+        cin.ignore();
+    }
+
+    outputReviews(head);
+    deleteList(head);
+    return 0;
 }
