@@ -10,7 +10,13 @@ struct Review {
 };
 
 // Function to add a new review to the head of the list
-
+Review* addToHead(Review* head, float rating, string comment) {
+    Review* newNode = new Review;
+    newNode->rating = rating;
+    newNode->comment = comment;
+    newNode->next = head;
+    return newNode;
+}
 
 // Function to add a new review to the tail of the list
 Review* addToTail(Review* head, float rating, string comment) {
@@ -31,7 +37,39 @@ Review* addToTail(Review* head, float rating, string comment) {
 }
 
 // Function to output all reviews and compute the average rating
+void outputReviews(Review* head) {
+    if (head == nullptr) {
+        cout << "No reviews to display.\n";
+        return;
+    }
 
+    Review* temp = head;
+    int count = 0;
+    float total = 0;
+    
+    cout << "Outputting all reviews:\n";
+    while (temp != nullptr) {
+        count++;
+        cout << "    > Review #" << count << ": "
+             << temp->rating << ": " << temp->comment << endl;
+        total += temp->rating;
+        temp = temp->next;
+    }
+
+    cout << "    > Average: " << (count > 0 ? total / count : 0) << endl;
+}
 
 // Function to delete the linked list (cleanup)
 
+
+int main() {
+    Review* head = nullptr;
+    int choice;
+    cout << "Which linked list method should we use?\n";
+    cout << "    [1] New nodes are added at the head of the linked list\n";
+    cout << "    [2] New nodes are added at the tail of the linked list\n";
+    cout << "    Choice: ";
+    cin >> choice;
+
+
+}
